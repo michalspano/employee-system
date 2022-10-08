@@ -1,0 +1,11 @@
+# exclude macOS binary
+*.DS_Store
+
+# exclude class files
+*.class
+
+# .vscode specific
+.vscode/
+
+# exclude zips
+*.zip
