@@ -1,9 +1,9 @@
 package assignment3;
 
 import java.util.ArrayList;
-// import java.util.Map;
+import java.util.HashMap;
 
-// TODO: consider handling an invalid id, hence '-1' from 'findEmployeeIndex(...)'
+// TODO: consider handling an invalid id, hence '-1' from 'findEmployeeIndex(...)' using exceptions
 
 public class Company {
 
@@ -30,7 +30,7 @@ public class Company {
         Employee newEmployee = new Employee(employeeID, employeeName, grossSalary);
         this.employees.add(newEmployee);
         
-        return String.format("Employee %s was registered successfully.", employeeID);
+        return registerEmployee(employeeID);
     }
     
     /** 
@@ -45,7 +45,7 @@ public class Company {
         Employee newEmployee = new Manager(employeeID, employeeName, grossSalary, degree);
         this.employees.add(newEmployee);
 
-        return String.format("Employee %s was registered successfully.", employeeID);
+        return registerEmployee(employeeID);
     }
     
     /** 
@@ -61,7 +61,7 @@ public class Company {
         Employee newEmployee = new Director(employeeID, employeeName, grossSalary, degree, department);
         this.employees.add(newEmployee);
 
-        return String.format("Employee %s was registered successfully.", employeeID);
+        return registerEmployee(employeeID);
     }
     
     /** 
@@ -76,7 +76,7 @@ public class Company {
         Employee newEmployee = new Intern(employeeID, employeeName, grossSalary, gpa);
         this.employees.add(newEmployee);
 
-        return String.format("Employee %s was registered successfully.", employeeID);
+        return registerEmployee(employeeID);
     }
     
     /** 
@@ -86,7 +86,7 @@ public class Company {
     {
         int employeeIndex = findEmployeeIndex(id);
 
-        if (employeeIndex == -1) return "";
+        if (employeeIndex == -1) return ""; // TODO: throw exception per instructions
 
         this.employees.remove(employeeIndex);
 
@@ -134,6 +134,11 @@ public class Company {
         for (int i = 0; i < this.employees.size(); i++) {
             employees[i] = this.employees.get(i);
         }
+
+        /*
+        * Ask or discuss with Francisco about the readability of the following code
+        * 2/3 think that the for loop it's better for readability
+        */
 
         // sort the array
         for (int i = 0; i < employees.length; i++) {
@@ -183,7 +188,7 @@ public class Company {
 
         this.employees.get(employeeIndex).setName(newName);
 
-        return String.format("Employee %s was updated successfully", id);
+        return updateEmployee(id);
     }
     
     /** 
@@ -202,10 +207,8 @@ public class Company {
         Intern internEmployee = (Intern) currentEmployee;
         internEmployee.setGpa(newGpa);
 
-        return String.format("Employee %s was updated successfully", id);
-
+        return updateEmployee(id);
     }
-
     
     /** 
      * @param id
@@ -223,7 +226,7 @@ public class Company {
         Manager managerEmployee = (Manager) currentEmployee;
         managerEmployee.updateDegree(newDegree);
 
-        return String.format("Employee %s was updated successfully", id);   
+        return updateEmployee(id);
     }
     
     /** 
@@ -242,7 +245,7 @@ public class Company {
         Director directorEmployee = (Director) currentEmployee;
         directorEmployee.updateDepartment(newDept);
 
-        return String.format("Employee %s was updated successfully", id);  
+        return updateEmployee(id);
     }
 
     /** 
@@ -256,35 +259,122 @@ public class Company {
 
         this.employees.get(employeeIndex).setGrossSalary(newGrossSalary);
 
-        return String.format("Employee %s was updated successfully", id);
+        return updateEmployee(id);
     }
-    
-    // TODO: start adding functionalities here
-    // public Map<String, Integer> mapEachDegree()
-    // {
-    //     Map<String, Integer> degreesMap = new Map<String, Integer>();
-        
-    // }
 
-    /** 
+    /**
      * @return int
      */
     public int getNumberOfEmployees() {
         return this.employees.size();
     }
 
-    /** TODO: fix the truncation of this method
+    /**
      * @return double
      */
     public double getTotalNetSalary() {
         double sum = 0.0;
-        
-        for(Employee employee: this.employees)
-        {
-            sum += employee.getNetSalary();   
+
+        for (Employee employee : this.employees) {
+            sum += employee.getNetSalary();
         }
-        
+
         return sum;
+    }
+    
+    /* TODO: this method should return String in the specifications
+    * If there are no employees registered with a specific degree, the
+    * corresponding row is simply not printed. */
+    
+    /** 
+     * @return HashMap<String, Integer>
+     */
+    public HashMap<String, Integer> mapEachDegree()
+    {
+        HashMap<String, Integer> degreesMap = new HashMap<String, Integer>();
+
+        for (Employee currentEmployee : this.employees)
+        {
+            if (currentEmployee instanceof Manager)
+            {
+                Manager newManager = (Manager) currentEmployee;
+                String currentDegree = newManager.getDegree();
+
+                if (!degreesMap.containsKey(currentDegree)) {
+                    degreesMap.put(currentDegree, 0);
+                }
+
+                int currentDegreeCounter = degreesMap.get(currentDegree);
+                degreesMap.put(currentDegree, currentDegreeCounter + 1);
+            }
+        }
+        return degreesMap;
+    }
+
+    /******************* PROMOTION *******************/
+
+    /* ArrayList.set();
+     * docs: https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+     * 
+     * set(int index, E element)
+     * Replaces the element at the specified position in this list with the
+     * specified element.
+     * 
+     * Last accessed: 10.10.2022 */
+
+    // facade.promoteToManager(damonID, "PhD")
+    public String promoteToManager(String id, String degree) {
+
+        int employeeIndex = findEmployeeIndex(id);
+        Employee currentEmployee = this.employees.get(employeeIndex);
+
+        Manager newManager = new Manager(currentEmployee.getID(), 
+                                        currentEmployee.getName(), 
+                                        currentEmployee.getRawSalary(), 
+                                        degree);
+
+        this.employees.set(employeeIndex, newManager);
+        return promoteEmployee(id, "Manager");
+    }
+    
+    /** 
+     * @param id
+     * @param degree
+     * @param department
+     * @return String
+     */
+    public String promoteToDirector(String id, String degree, String department) {
+
+        int employeeIndex = findEmployeeIndex(id);
+        Employee currentEmployee = this.employees.get(employeeIndex);
+
+        Director newDirector = new Director(currentEmployee.getID(), 
+                                        currentEmployee.getName(), 
+                                        currentEmployee.getRawSalary(), 
+                                        degree, department);
+        
+        this.employees.set(employeeIndex, newDirector);
+        return promoteEmployee(id, "Director");
+    }
+    
+    /** 
+     * @param id
+     * @param gpa
+     * @return String
+     */
+    public String promoteToIntern(String id, int gpa) {
+        
+        int employeeIndex = findEmployeeIndex(id);
+
+        Employee currentEmployee = this.employees.get(employeeIndex);
+
+        Intern newDirector = new Intern(currentEmployee.getID(), 
+                                        currentEmployee.getName(), 
+                                        currentEmployee.getRawSalary(), 
+                                        gpa);
+        
+        this.employees.set(employeeIndex, newDirector);
+        return promoteEmployee(id, "Intern");
     }
 
     /***************** Utilities *****************/
@@ -299,5 +389,32 @@ public class Company {
         }
 
         return -1;
+    }
+    
+    // these methods will be put to a designated Utils.class since they don't depend on this class
+
+    /** 
+     * @param id
+     * @return String
+     */
+    private String registerEmployee(String id) {
+        return String.format("Employee %s was registered successfully.", id);
+    }
+    
+    /** 
+     * @param id
+     * @return String
+     */
+    private String updateEmployee(String id) {
+        return String.format("Employee %s was updated successfully", id);
+    }
+    
+    /** 
+     * @param id
+     * @param newType
+     * @return String
+     */
+    private String promoteEmployee(String id, String newType) {
+        return String.format("%s promoted successfully to %s.", id, newType);       
     }
 }
