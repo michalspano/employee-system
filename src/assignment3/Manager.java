@@ -16,6 +16,10 @@ public class Manager extends Employee {
     {
         this.degree = newDegree;
     }
+
+    public String getDegree() {
+        return this.degree;
+    }
     
     /** 
      * @return double
