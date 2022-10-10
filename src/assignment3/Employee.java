@@ -15,9 +15,16 @@ public class Employee
     /** 
      * @return double
      */
+    public double getRawSalary() {
+        return this.grossSalary;
+    }
+    
+    /** 
+     * @return double
+     */
     public double getNetSalary()
     {
-        return Utils.truncateDouble(this.getGrossSalary() - (this.getGrossSalary() * 0.1), 2);
+        return Utils.truncateDouble(this.getGrossSalary() * 0.9, 2);
     }
     
     /** 
@@ -28,6 +35,9 @@ public class Employee
         return this.ID;
     }
 
+    /** 
+     * @return String
+     */
     public String getName()
     {
         return this.name;
@@ -40,7 +50,10 @@ public class Employee
     {
         return this.grossSalary;
     }
-
+    
+    /** 
+     * @param newName
+     */
     public void setName(String newName) {
         this.name = newName;
     }
@@ -52,6 +65,10 @@ public class Employee
         this.grossSalary = newGrossSalary;
     }
     
+    /** 
+     * @param otherEmployee
+     * @return boolean
+     */
     public boolean equals(Employee otherEmployee) {
         return this.ID.equals(otherEmployee.ID);
     }
