@@ -44,20 +44,26 @@ public class Director extends Manager {
         {
             // 0.2 for 20% Taxes
             double taxes = 0.2;
-            return Utils.truncateDouble(this.getGrossSalary() - (this.getGrossSalary() * taxes), 2);
+            return Utils.truncateDouble(this.getGrossSalary() * (1 - taxes), 2);
 
         }
         else if(grossSalary > 50_000) // Maybe just else
         {
             // 0.2 for 20% 30,000 and 40% for the rest
-            double taxes1 = 0.2; double taxes2 = 0.4;
+            double taxes2 = 0.4;
 
             double currentGrossSalary = this.getGrossSalary();
 
             double reminder = currentGrossSalary - 30_000;
 
-            netSalary = Utils.truncateDouble(30_000 - (30_000 * taxes1), 2) + 
-                        Utils.truncateDouble(reminder - (reminder * taxes2), 2);
+            /*
+             * If we're always gonna have to do this operation
+             * 30000 - (30000 * 0.2)
+             * We can replace it by 24000
+             */
+
+            netSalary = 24_000 + 
+                        Utils.truncateDouble(reminder * (1 - taxes2), 2);
             
         }
         return netSalary;
