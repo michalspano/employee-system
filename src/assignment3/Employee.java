@@ -1,18 +1,21 @@
+/***************************************************************************************************
+ * Group Work Assignment 3 - A3-Group 20
+ * File: Employee.java
+ * Members: Ionel Pop, Joel Mattsson, Michal Spano
+ * For DIT043: Object Oriented Programming; SEM@GU.
+ ***************************************************************************************************/
+
 package assignment3;
 
 public class Employee
 {
-    /*  
-        1. Empty IDs: “ID cannot be blank.”
-        2. Empty employee names: “Name cannot be blank.”
-        3. Gross salaries less than or equal to zero: “Salary must be greater than zero.”
-    */
     private final String ID;
     private String name;
     private double grossSalary;
 
     public Employee(String ID, String name, double grossSalary) throws Exception 
     {
+        // TODO: explain the use of all the checks
         Utils.checkEmptyId(ID);
         Utils.checkEmptyName(name);
         Utils.checkEmptyGrossSalary(grossSalary);
@@ -25,7 +28,8 @@ public class Employee
     /** 
      * @return double
      */
-    public double getRawSalary() {
+    public double getRawSalary() 
+    {
         return this.grossSalary;
     }
     
@@ -34,6 +38,7 @@ public class Employee
      */
     public double getNetSalary()
     {
+        // an employee (by default) pays 10% of his gross salary as taxes
         return Utils.truncateDouble(this.getGrossSalary() * 0.9, 2);
     }
     
@@ -75,7 +80,7 @@ public class Employee
         this.grossSalary = newGrossSalary;
     }
     
-    /** 
+    /** Two employees are equal if they have the same ID
      * @param otherEmployee
      * @return boolean
      */
