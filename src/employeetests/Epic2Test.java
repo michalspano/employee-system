@@ -261,6 +261,7 @@ public class Epic2Test {
         Exception exceptionUpdSal = assertThrows(Exception.class, () -> {
             facade.updateGrossSalary("ID1", 0.00);
         });
+        
         Exception exceptionUpdateGPA = assertThrows(Exception.class, () -> {
             facade.updateInternGPA("ID1", 15);
         });

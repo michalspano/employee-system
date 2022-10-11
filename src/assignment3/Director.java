@@ -1,5 +1,7 @@
 package assignment3;
 
+import java.util.HashSet;
+
 public class Director extends Manager {
     
     private String department;
@@ -7,6 +9,9 @@ public class Director extends Manager {
 
     public Director(String ID, String name, double grossSalary, String degree, String department) throws Exception {
         super(ID, name, grossSalary, degree);
+
+        checkValidDepartment(department);
+
         this.department = department;
     }
 
@@ -21,8 +26,10 @@ public class Director extends Manager {
     /** 
      * @param newDept
      */
-    public void updateDepartment(String newDept)
+    public void updateDepartment(String newDept) throws Exception
     {
+        checkValidDepartment(newDept);
+
         this.department = newDept;
     }
     
@@ -66,6 +73,19 @@ public class Director extends Manager {
             
         }
         return netSalary;
+    }
+
+    public static void checkValidDepartment(String degree) throws Exception {
+        HashSet<String> departments = new HashSet<String>();
+
+        departments.add("Business");
+        departments.add("Human Resources");
+        departments.add("Technical");
+
+        if(!departments.contains(degree))
+        {
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
     }
 
     /** 

@@ -7,14 +7,19 @@ public class Intern extends Employee
 
     public Intern(String ID, String name, double grossSalary, int gpa) throws Exception {
         super(ID, name, grossSalary);
+
+        checkValidGPA(gpa);
+
         this.gpa = gpa;
     }
     
     /** 
      * @param newGPA
      */
-    public void setGpa(int newGPA)
+    public void setGpa(int newGPA) throws Exception
     {
+        checkValidGPA(newGPA);
+
         this.gpa = newGPA;
     }
     
@@ -39,6 +44,15 @@ public class Intern extends Employee
     @Override
     public double getNetSalary() {
         return this.getGrossSalary();
+    }
+
+    public static void checkValidGPA(int newGPA) throws Exception
+    {
+        if(newGPA < 0 || newGPA > 10)
+        {
+            String message = String.format("%d outside range. Must be between 0-10.", newGPA);
+            throw new Exception(message);
+        }
     }
     
     /** 
