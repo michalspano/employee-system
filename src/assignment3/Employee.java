@@ -2,11 +2,21 @@ package assignment3;
 
 public class Employee
 {
+    /*  
+        1. Empty IDs: “ID cannot be blank.”
+        2. Empty employee names: “Name cannot be blank.”
+        3. Gross salaries less than or equal to zero: “Salary must be greater than zero.”
+    */
     private final String ID;
     private String name;
     private double grossSalary;
 
-    public Employee(String ID, String name, double grossSalary) {
+    public Employee(String ID, String name, double grossSalary) throws Exception 
+    {
+        Utils.checkEmptyId(ID);
+        Utils.checkEmptyName(name);
+        Utils.checkEmptyGrossSalary(grossSalary);
+        
         this.ID = ID;
         this.name = name;
         this.grossSalary = Utils.truncateDouble(grossSalary, 2);

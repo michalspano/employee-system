@@ -5,8 +5,7 @@ public class Intern extends Employee
     private int gpa;
     private final double BONUS = 1_000;
 
-    public Intern(String ID, String name, double grossSalary, int gpa)
-    {
+    public Intern(String ID, String name, double grossSalary, int gpa) throws Exception {
         super(ID, name, grossSalary);
         this.gpa = gpa;
     }

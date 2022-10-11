@@ -4,8 +4,12 @@ public class Manager extends Employee {
 
     private String degree;
     
-    public Manager(String ID, String name, double grossSalary, String degree) {
+    public Manager(String ID, String name, double grossSalary, String degree) throws Exception {
+        
         super(ID, name, grossSalary);
+        
+        // Utils.checkValidDegree(degree);
+
         this.degree = degree;
     }
     
@@ -26,7 +30,7 @@ public class Manager extends Employee {
      */
     @Override
     public double getGrossSalary() {
-        double bonus = Degrees.valueOf(this.degree.toUpperCase()).bonus;
+        double bonus = Degrees.valueOf(this.degree).bonus;
 
         return Utils.truncateDouble(super.getGrossSalary() * (bonus + 1), 2);
     }

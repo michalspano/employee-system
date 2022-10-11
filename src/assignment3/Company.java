@@ -19,28 +19,33 @@ public class Company {
 
     /* Below, we list the different overloaded methods to create different types of Employees per the specifications */
     
-    /** 
+    /** Employee
      * @param employeeID
      * @param employeeName
      * @param grossSalary
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary) {
+    public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
+
+        checkIfEmployeeExists(employeeID);
         
         Employee newEmployee = new Employee(employeeID, employeeName, grossSalary);
+
         this.employees.add(newEmployee);
         
         return registerEmployee(employeeID);
     }
     
-    /** 
+    /** Manager
      * @param employeeID
      * @param employeeName
      * @param grossSalary
      * @param degree
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) {
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
+
+        checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Manager(employeeID, employeeName, grossSalary, degree);
         this.employees.add(newEmployee);
@@ -48,7 +53,7 @@ public class Company {
         return registerEmployee(employeeID);
     }
     
-    /** 
+    /** Director
      * @param employeeID
      * @param employeeName
      * @param grossSalary
@@ -56,7 +61,9 @@ public class Company {
      * @param department
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) {
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception {
+
+        checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Director(employeeID, employeeName, grossSalary, degree, department);
         this.employees.add(newEmployee);
@@ -64,14 +71,16 @@ public class Company {
         return registerEmployee(employeeID);
     }
     
-    /** 
+    /** Intern
      * @param employeeID
      * @param employeeName
      * @param grossSalary
      * @param gpa
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) {
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
+
+        checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Intern(employeeID, employeeName, grossSalary, gpa);
         this.employees.add(newEmployee);
@@ -81,12 +90,13 @@ public class Company {
     
     /** 
      * @param id
+     * @throws Exception
      */
-    public String removeEmployee(String id)
+    public String removeEmployee(String id) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
 
-        if (employeeIndex == -1) return ""; // TODO: throw exception per instructions
+        checkIfEmployeeFound(id, employeeIndex);
 
         this.employees.remove(employeeIndex);
 
@@ -97,9 +107,11 @@ public class Company {
      * @param id
      * @return String
      */
-    public String printEmployee(String id)
+    public String printEmployee(String id) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -109,8 +121,10 @@ public class Company {
     /** 
      * @return String
      */
-    public String printAllEmployees()
+    public String printAllEmployees() throws Exception
     {
+        checkIfNoEmployees();
+
         String msg = "All registered employees:" + EOL;
 
         for (Employee employee : this.employees) {
@@ -123,7 +137,9 @@ public class Company {
     /** 
      * @return String
      */
-    public String printSortedEmployees() {
+    public String printSortedEmployees() throws Exception
+    {
+        checkIfNoEmployees();
 
         /* TODO: Adduce explanation of the following code, regarding the complexity, structure, choice of algorithm, etc. */
 
@@ -169,8 +185,11 @@ public class Company {
      * @param id
      * @return double
      */
-    public double getNetSalary(String id) {
+    public double getNetSalary(String id) throws Exception 
+    {
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
         
@@ -183,8 +202,14 @@ public class Company {
      * @param id
      * @param newName
      */
-    public String updateEmployeeName(String id, String newName) {
+    public String updateEmployeeName(String id, String newName) throws Exception
+    {
+
+        Utils.checkEmptyName(newName);
+
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         this.employees.get(employeeIndex).setName(newName);
 
@@ -196,9 +221,11 @@ public class Company {
      * @param newGpa
      * @return String
      */
-    public String updateInternGPA(String id, int newGpa)
+    public String updateInternGPA(String id, int newGpa) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -215,9 +242,13 @@ public class Company {
      * @param newDegree
      * @return String
      */
-    public String updateManagerDegree(String id, String newDegree)
+    public String updateManagerDegree(String id, String newDegree) throws Exception
     {
+        // Utils.checkValidDegree(newDegree);
+
         int employeeIndex = findEmployeeIndex(id);
+    
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -234,9 +265,11 @@ public class Company {
      * @param newDept
      * @return String
      */
-    public String updateDirectorDept(String id, String newDept)
+    public String updateDirectorDept(String id, String newDept) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -253,9 +286,13 @@ public class Company {
      * @param newGrossSalary
      * @return String
      */
-    public String updateGrossSalary(String id, double newGrossSalary)
+    public String updateGrossSalary(String id, double newGrossSalary) throws Exception
     {
+        Utils.checkEmptyGrossSalary(newGrossSalary);
+        
         int employeeIndex = findEmployeeIndex(id);
+    
+        checkIfEmployeeFound(id, employeeIndex);
 
         this.employees.get(employeeIndex).setGrossSalary(newGrossSalary);
 
@@ -272,7 +309,10 @@ public class Company {
     /**
      * @return double
      */
-    public double getTotalNetSalary() {
+    public double getTotalNetSalary() throws Exception
+    {
+        checkIfNoEmployees();
+
         double sum = 0.0;
 
         for (Employee employee : this.employees) {
@@ -289,8 +329,10 @@ public class Company {
     /** 
      * @return HashMap<String, Integer>
      */
-    public HashMap<String, Integer> mapEachDegree()
+    public HashMap<String, Integer> mapEachDegree() throws Exception
     {
+        checkIfNoEmployees();
+
         HashMap<String, Integer> degreesMap = new HashMap<String, Integer>();
 
         for (Employee currentEmployee : this.employees)
@@ -323,9 +365,11 @@ public class Company {
      * Last accessed: 10.10.2022 */
 
     // facade.promoteToManager(damonID, "PhD")
-    public String promoteToManager(String id, String degree) {
-
+    public String promoteToManager(String id, String degree) throws Exception
+    {
         int employeeIndex = findEmployeeIndex(id);
+        checkIfEmployeeFound(id, employeeIndex);
+
         Employee currentEmployee = this.employees.get(employeeIndex);
 
         Manager newManager = new Manager(currentEmployee.getID(), 
@@ -343,9 +387,13 @@ public class Company {
      * @param department
      * @return String
      */
-    public String promoteToDirector(String id, String degree, String department) {
+    public String promoteToDirector(String id, String degree, String department) throws Exception
+    {
 
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
+
         Employee currentEmployee = this.employees.get(employeeIndex);
 
         Director newDirector = new Director(currentEmployee.getID(), 
@@ -362,9 +410,12 @@ public class Company {
      * @param gpa
      * @return String
      */
-    public String promoteToIntern(String id, int gpa) {
+    public String promoteToIntern(String id, int gpa) throws Exception
+    {
         
         int employeeIndex = findEmployeeIndex(id);
+
+        checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -380,6 +431,7 @@ public class Company {
     /***************** Utilities *****************/
     
     private int findEmployeeIndex(String id) {
+
         for (int i = 0; i < employees.size(); i++) {
             Employee currentEmployee = employees.get(i);
 
@@ -391,7 +443,30 @@ public class Company {
         return -1;
     }
     
+    /** 
+     * @throws Exception
+     */
+    // create a method that will throw an exception if the employee is not found
+    private void checkIfNoEmployees() throws Exception {
+        if (this.employees.isEmpty()) 
+            throw new Exception("No employees registered yet.");    
+    }
+    
+    /** 
+     * @param id
+     * @throws Exception
+     */
+    private void checkIfEmployeeFound(String id, int index) throws Exception {
+        if (index == -1)
+            throw new Exception(String.format("Employee %s was not registered yet.", id));
+    }
+    
     // these methods will be put to a designated Utils.class since they don't depend on this class
+
+    private void checkIfEmployeeExists(String id) throws Exception {
+        if (findEmployeeIndex(id) != -1) 
+            throw new Exception(String.format("Cannot register. ID %s is already registered.", id));
+    }
 
     /** 
      * @param id
