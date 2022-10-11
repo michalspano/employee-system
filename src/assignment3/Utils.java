@@ -45,9 +45,14 @@ public class Utils
     }
 
     public static void checkValidDegree(String degree) throws Exception {
+        int counter = 0;
         for (Degrees currentDegree : Degrees.values()) {
-            if (currentDegree.name().equals(degree)) 
-                throw new Exception("Degree must be one of the options: PhD, MSc or PhD.");
+            if (!currentDegree.name().equals(degree)) 
+                counter++;
+        }
+
+        if (counter == 3) {
+            throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
     } 
 }

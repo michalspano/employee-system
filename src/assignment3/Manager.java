@@ -8,7 +8,7 @@ public class Manager extends Employee {
         
         super(ID, name, grossSalary);
         
-        // Utils.checkValidDegree(degree);
+        Utils.checkValidDegree(degree);
 
         this.degree = degree;
     }

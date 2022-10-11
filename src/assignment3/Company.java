@@ -244,7 +244,7 @@ public class Company {
      */
     public String updateManagerDegree(String id, String newDegree) throws Exception
     {
-        // Utils.checkValidDegree(newDegree);
+        Utils.checkValidDegree(newDegree);
 
         int employeeIndex = findEmployeeIndex(id);
     
