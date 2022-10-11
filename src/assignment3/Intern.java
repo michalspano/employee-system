@@ -1,15 +1,25 @@
+/***************************************************************************************************
+ * Group Work Assignment 3 - A3-Group 20
+ * File: Intern.java
+ * Members: Ionel Pop, Joel Mattsson, Michal Spano
+ * For DIT043: Object Oriented Programming; SEM@GU.
+ ***************************************************************************************************/
+
 package assignment3;
 
 public class Intern extends Employee
 {
-    private int gpa;
     private final double BONUS = 1_000;
+    private int gpa;
 
-    public Intern(String ID, String name, double grossSalary, int gpa) throws Exception {
+    public Intern(String ID, String name, double grossSalary, int gpa) throws Exception 
+    {
+        /* Analysis:
+         * TODO: add comment
+         */
+        
         super(ID, name, grossSalary);
-
         checkValidGPA(gpa);
-
         this.gpa = gpa;
     }
     
@@ -19,7 +29,6 @@ public class Intern extends Employee
     public void setGpa(int newGPA) throws Exception
     {
         checkValidGPA(newGPA);
-
         this.gpa = newGPA;
     }
     
@@ -27,14 +36,18 @@ public class Intern extends Employee
      * @return double
      */
     @Override
-    public double getGrossSalary() {
-        if (this.gpa <= 5) {
+    public double getGrossSalary()
+    {      
+        if (this.gpa <= 5) 
+        {
             return 0;
         }
-        else if (this.gpa <= 8) {
+        
+        else if (this.gpa <= 8) 
+        {
             return super.getGrossSalary();
         }
-        
+    
         return super.getGrossSalary() + BONUS;
     }
     
@@ -42,24 +55,27 @@ public class Intern extends Employee
      * @return double
      */
     @Override
-    public double getNetSalary() {
+    public double getNetSalary() 
+    {
         return this.getGrossSalary();
     }
 
+    /** 
+     * @param newGPA
+     * @throws Exception
+     */
     public static void checkValidGPA(int newGPA) throws Exception
     {
-        if(newGPA < 0 || newGPA > 10)
-        {
-            String message = String.format("%d outside range. Must be between 0-10.", newGPA);
-            throw new Exception(message);
-        }
+        if (newGPA < 0 || newGPA > 10)
+            throw new Exception(String.format("%d outside range. Must be between 0-10.", newGPA));
     }
     
     /** 
      * @return String
      */
     @Override
-    public String toString() {
+    public String toString()
+    {
         return String.format("%s's gross salary is %.2f SEK per month. GPA: %d", 
                             this.getName(), this.getGrossSalary(), this.gpa);
     }
