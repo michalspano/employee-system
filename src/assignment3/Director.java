@@ -14,6 +14,9 @@ public class Director extends Manager
 
     public Director(String ID, String name, double grossSalary, String degree, String department) throws Exception
     {
+        /* Analysis:
+         * TODO: add comment
+         */
         super(ID, name, grossSalary, degree);
         checkValidDepartment(department);
         this.department = department;
