@@ -2,10 +2,35 @@ package assignment3;
 
 import java.lang.Math;
 
+import java.util.HashSet;
+import java.util.HashMap;
+
 /* Herein, we specify static methods shared across the classes... */
 
 public class Utils
-{
+{   
+    // TODO: add comments to explain the use of Collections, etc.
+
+    /* TODO: according to some sources, this approach might be a bit unsafe
+       and also quite memory consuming. Ask the teacher about this. */
+
+    /* 'Double Brace Initialization'
+     * Documentation summary via:
+     * https://www.geeksforgeeks.org/double-brace-initialization-java/
+     * Last accessed: 11.10.2022 */
+    
+    public static final HashSet<String> DEPARTMENTS = new HashSet<>() {{
+        add("Business");
+        add("Human Resources");
+        add("Technical");
+    }};
+
+    public static final HashMap<String, Double> DEGREES = new HashMap<>() {{
+        put("BSc", 0.1);
+        put("MSc", 0.2);
+        put("PhD", 0.35);
+    }};
+
     /** truncate a double to n decimal places
      * @param value
      * @param decimalPlaces
@@ -43,15 +68,23 @@ public class Utils
             throw new Exception("Salary must be greater than zero.");
         }
     }
-
+    
+    /** 
+     * @param degree
+     * @throws Exception
+     */
     public static void checkValidDegree(String degree) throws Exception {
-        int counter = 0;
-        for (Degrees currentDegree : Degrees.values()) {
-            if (!currentDegree.name().equals(degree)) 
-                counter++;
-        }
+        // int counter = 0;
+        // for (Degrees currentDegree : Degrees.values()) {
+        //     if (!currentDegree.name().equals(degree)) 
+        //         counter++;
+        // }
 
-        if (counter == 3) {
+        // if (counter == 3) {
+        //     throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
+        // }
+
+        if (!DEGREES.keySet().contains(degree)) {
             throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
     } 
