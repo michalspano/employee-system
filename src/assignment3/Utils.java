@@ -14,7 +14,7 @@ public class Utils
     /* TODO: according to some sources, this approach might be a bit unsafe
        and also quite memory consuming. Ask the teacher about this. */
 
-    /* 'Double Brace Initialization'
+    /* 'Double Brace Initialization' (add() method one-liner)
      * Documentation summary via:
      * https://www.geeksforgeeks.org/double-brace-initialization-java/
      * Last accessed: 11.10.2022 */
@@ -30,6 +30,8 @@ public class Utils
         put("MSc", 0.2);
         put("PhD", 0.35);
     }};
+
+    public static final String EOL = System.lineSeparator();
 
     /** truncate a double to n decimal places
      * @param value
