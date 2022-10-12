@@ -1,14 +1,11 @@
 package assignment3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
-// TODO: consider handling an invalid id, hence '-1' from 'findEmployeeIndex(...)' using exceptions
-
-public class Company {
-
-    private static final String EOL = System.lineSeparator();
-    
+public class Company 
+{    
     /* Collection of type ArrayList to store the current employees of the company */
     private ArrayList<Employee> employees;
 
@@ -25,8 +22,8 @@ public class Company {
      * @param grossSalary
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception {
-
+    public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception 
+    {
         checkIfEmployeeExists(employeeID);
         
         Employee newEmployee = new Employee(employeeID, employeeName, grossSalary);
@@ -43,8 +40,8 @@ public class Company {
      * @param degree
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception {
-
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception 
+    {
         checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Manager(employeeID, employeeName, grossSalary, degree);
@@ -61,8 +58,8 @@ public class Company {
      * @param department
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception {
-
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception 
+    {
         checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Director(employeeID, employeeName, grossSalary, degree, department);
@@ -78,8 +75,8 @@ public class Company {
      * @param gpa
      * @return String
      */
-    public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
-
+    public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception 
+    {
         checkIfEmployeeExists(employeeID);
 
         Employee newEmployee = new Intern(employeeID, employeeName, grossSalary, gpa);
@@ -125,10 +122,10 @@ public class Company {
     {
         checkIfNoEmployees();
 
-        String msg = "All registered employees:" + EOL;
+        String msg = "All registered employees:" + Utils.EOL;
 
         for (Employee employee : this.employees) {
-            msg += employee.toString() + EOL;
+            msg += employee.toString() + Utils.EOL;
         }
     
         return msg;
@@ -139,11 +136,36 @@ public class Company {
      */
     public String printSortedEmployees() throws Exception
     {
-        checkIfNoEmployees();
+        checkIfNoEmployees(); // this needs to be checked before accessing the body of this method
 
-        /* TODO: Adduce explanation of the following code, regarding the complexity, structure, choice of algorithm, etc. */
+        /* This implementation uses the Collections.sort() from the Collections class; we define the 
+         * compareTo() method from the Comparable interface in the Employee class to sort the employees
+         * by the grossSalaries in the ascending order. For that, we need to copy the employees from the
+         * ArrayList to a new ArrayList, so that we don't modify the original ArrayList. This can be done
+         * with the double brace initialization syntax (which greatly improves the readability of the code). */
 
-        String result = "Employees sorted by gross salary (ascending order):" + EOL;
+        /* 'Double Brace Initialization' (further documentation; for adAll() method):
+         * Documentation summary via:
+         * https://www.techiedelight.com/double-brace-initialization-java/
+         * Last accessed: 12.10.2022 */
+
+        ArrayList<Employee> temporaryList = new ArrayList<>() {{ 
+            addAll(employees); 
+        }}; 
+
+        String result = "Employees sorted by gross salary (ascending order):" + Utils.EOL;
+
+        // sort the temporary list using the Collections.sort() method
+        Collections.sort(temporaryList);
+
+        for (Employee employee : temporaryList) {
+            result = result + employee.toString() + Utils.EOL;
+        }
+
+        return result;
+        
+        /* 
+        String result = "Employees sorted by gross salary (ascending order):" + Utils.EOL;
 
         Employee[] employees = new Employee[this.employees.size()];
 
@@ -151,12 +173,9 @@ public class Company {
             employees[i] = this.employees.get(i);
         }
 
-        /*
-        * Ask or discuss with Francisco about the readability of the following code
-        * 2/3 think that the for loop it's better for readability
-        */
+        // Ask or discuss with Francisco about the readability of the following code
+        // 2/3 think that the for loop it's better for readability
 
-        // sort the array
         for (int i = 0; i < employees.length; i++) {
             for (int j = 0; j < employees.length - i - 1; j++) {
                 
@@ -179,6 +198,7 @@ public class Company {
         }
 
         return result;
+        */
     }
 
     /** 
@@ -244,7 +264,7 @@ public class Company {
      */
     public String updateManagerDegree(String id, String newDegree) throws Exception
     {
-        Utils.checkValidDegree(newDegree);
+        Utils.checkValidDegree(newDegree); // explain why this check is the initial one
 
         int employeeIndex = findEmployeeIndex(id);
     
@@ -462,7 +482,11 @@ public class Company {
     }
     
     // these methods will be put to a designated Utils.class since they don't depend on this class
-
+    
+    /** 
+     * @param id
+     * @throws Exception
+     */
     private void checkIfEmployeeExists(String id) throws Exception {
         if (findEmployeeIndex(id) != -1) 
             throw new Exception(String.format("Cannot register. ID %s is already registered.", id));

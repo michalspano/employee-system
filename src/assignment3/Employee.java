@@ -7,7 +7,7 @@
 
 package assignment3;
 
-public class Employee
+public class Employee implements Comparable<Employee>
 {
     private final String ID;
     private String name;
@@ -23,6 +23,30 @@ public class Employee
         this.ID = ID;
         this.name = name;
         this.grossSalary = Utils.truncateDouble(grossSalary, 2);
+    }
+
+    /** compareTo from Comparable interface
+     * @param otherEmployee
+     * @return int
+     */
+    @Override
+    public int compareTo(Employee otherEmployee) 
+    {
+        // store the two compared values inside variables for readability
+        double currentSalary = this.getGrossSalary();
+        double otherSalary   = otherEmployee.getGrossSalary();
+
+        // sort in the increasing order
+        if (currentSalary > otherSalary) 
+        {
+            return 1;
+
+        } else if (currentSalary == otherSalary) 
+        {
+            return 0;
+        }
+
+        return -1;
     }
     
     /** 
@@ -69,14 +93,16 @@ public class Employee
     /** 
      * @param newName
      */
-    public void setName(String newName) {
+    public void setName(String newName) 
+    {
         this.name = newName;
     }
     
     /** 
      * @param newGrossSalary
      */
-    public void setGrossSalary(double newGrossSalary) {
+    public void setGrossSalary(double newGrossSalary) 
+    {
         this.grossSalary = newGrossSalary;
     }
     
@@ -84,14 +110,16 @@ public class Employee
      * @param otherEmployee
      * @return boolean
      */
-    public boolean equals(Employee otherEmployee) {
+    public boolean equals(Employee otherEmployee) 
+    {
         return this.ID.equals(otherEmployee.ID);
     }
 
     /** 
      * @return String
      */
-    public String toString() {
+    public String toString() 
+    {
         return String.format("%s's gross salary is %.2f SEK per month.", 
                             this.name, this.grossSalary);
     }
