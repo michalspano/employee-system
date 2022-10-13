@@ -118,9 +118,19 @@ public class Employee implements Comparable<Employee>
      * @param otherEmployee
      * @return boolean
      */
-    public boolean equals(Employee otherEmployee) 
-    {
-        return this.ID.equals(otherEmployee.ID);
+    public boolean equals(Object anotherObject) 
+    {   
+        // null, not an instance of Employee => not equal
+        if (anotherObject == null) return false;
+
+        if (anotherObject instanceof Employee) {        // check if the object is an instance of Employee
+
+            Employee otherEmployee = (Employee) anotherObject;      // perform down-casting and compare the IDs
+            return this.getID().equals(otherEmployee.getID());
+        }
+
+        // otherwise, not equal
+        return false;
     }
 
     /** 
