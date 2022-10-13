@@ -9,3 +9,6 @@
 
 # exclude zips
 *.zip
+
+# intelliJ specific
+.idea/
