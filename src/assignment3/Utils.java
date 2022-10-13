@@ -1,3 +1,10 @@
+/***************************************************************************************************
+ * Group Work Assignment 3 - A3-Group 20
+ * File: Utils.java
+ * Members: Ionel Pop, Joel Mattsson, Michal Spano
+ * For DIT043: Object Oriented Programming; SEM@GU.
+ ***************************************************************************************************/
+
 package assignment3;
 
 import java.lang.Math;
@@ -42,22 +49,31 @@ public class Utils
         double powerOfTen = Math.pow(10, decimalPlaces);
         return Math.floor(value * powerOfTen) / powerOfTen;
     }
+
+    public static boolean isStringEmpty(String string) {
+        return string == null || string.trim().isEmpty();
+    }
+
+    /* Analysis:
+     * the `String.trim()` method is used to erase all redundant spaces
+     * therefore, we cover the corner case when the user enters more single 
+     * spaces, which is an invalid input. */
     
     /** 
      * @param id
      * @throws Exception
      */
     public static void checkEmptyId(String id) throws Exception {
-        if (id.trim().isEmpty())
+        if (isStringEmpty(id))
             throw new Exception("ID cannot be blank.");
     }
-    
+
     /** 
      * @param name
      * @throws Exception
      */
     public static void checkEmptyName(String name) throws Exception {
-        if (name.trim().isEmpty())
+        if (isStringEmpty(name))
             throw new Exception("Name cannot be blank.");
     }
 
@@ -75,19 +91,19 @@ public class Utils
      * @param degree
      * @throws Exception
      */
-    public static void checkValidDegree(String degree) throws Exception {
-        // int counter = 0;
-        // for (Degrees currentDegree : Degrees.values()) {
-        //     if (!currentDegree.name().equals(degree)) 
-        //         counter++;
-        // }
-
-        // if (counter == 3) {
-        //     throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
-        // }
-
+    public static void checkValidDegree(String degree) throws Exception 
+    {
         if (!DEGREES.keySet().contains(degree)) {
             throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
         }
     } 
+
+    /** We indicate invalid employee with '-1'
+     * @param id
+     * @throws Exception
+     */
+    public static void checkIfEmployeeFound(String id, int index) throws Exception {
+        if (index == -1)
+            throw new Exception(String.format("Employee %s was not registered yet.", id));
+    }
 }
