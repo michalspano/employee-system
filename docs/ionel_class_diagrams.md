@@ -15,22 +15,34 @@ classDiagram
         +getID() String
         +getName() String
         +getGrossSalary() double
-        +setName(String newName)
+        +setName(String newName) void
         +setGrossSalary(double newGrossSalary)
-
     }
     
-    class Duck{
-        +String beakColor
-        +swim()
-        +quack()
+    class Intern{
+        - final double BONUS
+        - int gpa
+        +Intern(String ID, String name, double grossSalary, int gpa)
+        +setGpa(int newGPA) void
+        +getGrossSalary() double
+        +getNetSalary() double
+        +static checkValidGPA(int newGPA) void
     }
-    class Fish{
-        -int sizeInFeet
-        -canEat()
+
+    class Manager{
+        -String Degree
+        +Manager(String ID, String name, double grossSalary, String degree)
+        +updateDegree(String newDegree) void
+        +getDegree() String
+        +getGrossSalary() double
     }
-    class Zebra{
-        +bool is_wild
-        +run()
+
+    class Director{
+        -String Department
+        +Director(String ID, String name, double grossSalary, String degree, String department)
+        +updateDepartment(String newDept) void
+        +getDegree() String
+        +getGrossSalary() double
+        +getNetSalary() double
     }
 ```

@@ -19,7 +19,7 @@ public class Intern extends Employee
          */
         
         super(ID, name, grossSalary);
-        checkValidGPA(gpa);
+        ExceptionThrower.checkValidGPA(gpa);
         this.gpa = gpa;
     }
     
@@ -28,7 +28,7 @@ public class Intern extends Employee
      */
     public void setGpa(int newGPA) throws Exception
     {
-        checkValidGPA(newGPA);
+        ExceptionThrower.checkValidGPA(newGPA);
         this.gpa = newGPA;
     }
     
@@ -58,16 +58,6 @@ public class Intern extends Employee
     public double getNetSalary() 
     {
         return this.getGrossSalary();
-    }
-
-    /** 
-     * @param newGPA
-     * @throws Exception
-     */
-    public static void checkValidGPA(int newGPA) throws Exception
-    {
-        if (newGPA < 0 || newGPA > 10)
-            throw new Exception(String.format("%d outside range. Must be between 0-10.", newGPA));
     }
     
     /** 

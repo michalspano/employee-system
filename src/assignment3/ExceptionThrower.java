@@ -75,4 +75,26 @@ public class ExceptionThrower {
         if (size == 0)
             throw new Exception("No employees registered yet.");
     }
+
+    /** 
+     * @param degree
+     * @throws Exception
+     */
+    public static void checkValidDepartment(String degree) throws Exception 
+    {
+        if (!Utils.DEPARTMENTS.contains(degree)) 
+        {
+            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
+        }
+    }
+
+    /** 
+     * @param newGPA
+     * @throws Exception
+     */
+    public static void checkValidGPA(int newGPA) throws Exception
+    {
+        if (newGPA < 0 || newGPA > 10)
+            throw new Exception(String.format("%d outside range. Must be between 0-10.", newGPA));
+    }
 }

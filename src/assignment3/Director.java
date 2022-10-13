@@ -18,7 +18,7 @@ public class Director extends Manager
          * TODO: add comment
          */
         super(ID, name, grossSalary, degree);
-        checkValidDepartment(department);
+        ExceptionThrower.checkValidDepartment(department);
         this.department = department;
     }
 
@@ -36,7 +36,7 @@ public class Director extends Manager
      */
     public void updateDepartment(String newDept) throws Exception 
     {
-        checkValidDepartment(newDept);
+        ExceptionThrower.checkValidDepartment(newDept);
         this.department = newDept;
     }
     
@@ -86,18 +86,6 @@ public class Director extends Manager
             netSalary = 24_000 + Utils.truncateDouble(remainder * (0.6), 2);
         }
         return netSalary;
-    }
-   
-    /** 
-     * @param degree
-     * @throws Exception
-     */
-    public static void checkValidDepartment(String degree) throws Exception 
-    {
-        if (!Utils.DEPARTMENTS.contains(degree)) 
-        {
-            throw new Exception("Department must be one of the options: Business, Human Resources or Technical.");
-        }
     }
 
     /** 
