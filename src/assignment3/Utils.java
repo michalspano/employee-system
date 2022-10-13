@@ -18,9 +18,6 @@ public class Utils
 {   
     // TODO: add comments to explain the use of Collections, etc.
 
-    /* TODO: according to some sources, this approach might be a bit unsafe
-       and also quite memory consuming. Ask the teacher about this. */
-
     /* 'Double Brace Initialization' (add() method one-liner)
      * Documentation summary via:
      * https://www.geeksforgeeks.org/double-brace-initialization-java/
@@ -50,60 +47,16 @@ public class Utils
         return Math.floor(value * powerOfTen) / powerOfTen;
     }
 
-    public static boolean isStringEmpty(String string) {
-        return string == null || string.trim().isEmpty();
-    }
-
     /* Analysis:
      * the `String.trim()` method is used to erase all redundant spaces
-     * therefore, we cover the corner case when the user enters more single 
+     * therefore, we cover the corner case when the user enters more single
      * spaces, which is an invalid input. */
-    
-    /** 
-     * @param id
-     * @throws Exception
-     */
-    public static void checkEmptyId(String id) throws Exception {
-        if (isStringEmpty(id))
-            throw new Exception("ID cannot be blank.");
-    }
 
     /** 
-     * @param name
-     * @throws Exception
+     * @param string
+     * @return boolean
      */
-    public static void checkEmptyName(String name) throws Exception {
-        if (isStringEmpty(name))
-            throw new Exception("Name cannot be blank.");
-    }
-
-    /** 
-     * @param salary
-     * @throws Exception
-     */
-    public static void checkEmptyGrossSalary(double salary) throws Exception {
-        if (salary <= 0.0) {
-            throw new Exception("Salary must be greater than zero.");
-        }
-    }
-    
-    /** 
-     * @param degree
-     * @throws Exception
-     */
-    public static void checkValidDegree(String degree) throws Exception 
-    {
-        if (!DEGREES.keySet().contains(degree)) {
-            throw new Exception("Degree must be one of the options: BSc, MSc or PhD.");
-        }
-    } 
-
-    /** We indicate invalid employee with '-1'
-     * @param id
-     * @throws Exception
-     */
-    public static void checkIfEmployeeFound(String id, int index) throws Exception {
-        if (index == -1)
-            throw new Exception(String.format("Employee %s was not registered yet.", id));
+    public static boolean isStringEmpty(String string) {
+        return string == null || string.trim().isEmpty();
     }
 }
