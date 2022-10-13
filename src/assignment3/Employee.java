@@ -95,17 +95,22 @@ public class Employee implements Comparable<Employee>
     
     /** 
      * @param newName
+     * @throws Exception
      */
-    public void setName(String newName) 
+    public void setName(String newName) throws Exception 
     {
+        ExceptionThrower.checkEmptyName(newName);
         this.name = newName;
     }
     
     /** 
      * @param newGrossSalary
+     * @throws Exception
      */
-    public void setGrossSalary(double newGrossSalary) 
+    public void setGrossSalary(double newGrossSalary) throws Exception 
     {
+        // ensure that the given gross salary is non-negative & positive
+        ExceptionThrower.checkEmptyGrossSalary(newGrossSalary);
         this.grossSalary = newGrossSalary;
     }
     

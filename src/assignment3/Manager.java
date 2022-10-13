@@ -24,9 +24,12 @@ public class Manager extends Employee {
     
     /** 
      * @param newDegree
+     * @throws Exception
      */
-    public void updateDegree(String newDegree)
+    public void updateDegree(String newDegree) throws Exception
     {
+        // ensure that the given degree valid
+        ExceptionThrower.checkValidDegree(newDegree);
         this.degree = newDegree;
     }
     

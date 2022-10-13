@@ -179,9 +179,6 @@ public class Company
      */
     public String updateEmployeeName(String id, String newName) throws Exception
     {
-
-        ExceptionThrower.checkEmptyName(newName);
-
         int employeeIndex = findEmployeeIndex(id);
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
@@ -220,9 +217,6 @@ public class Company
      */
     public String updateManagerDegree(String id, String newDegree) throws Exception
     {
-        // ensure that the given degree valid; otherwise don't perform the following procedures
-        ExceptionThrower.checkValidDegree(newDegree);
-
         int employeeIndex = findEmployeeIndex(id);
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
@@ -266,10 +260,7 @@ public class Company
      * @return String
      */
     public String updateGrossSalary(String id, double newGrossSalary) throws Exception
-    {   
-        // ensure that the given gross salary is non-negative & positive
-        ExceptionThrower.checkEmptyGrossSalary(newGrossSalary);
-        
+    {           
         int employeeIndex = findEmployeeIndex(id);
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
