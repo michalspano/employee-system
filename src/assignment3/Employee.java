@@ -19,9 +19,9 @@ public class Employee implements Comparable<Employee>
          * if any of these are invalid, an Exception is thrown and no object is created
          * Therefore, we need to check them before the object is created */
 
-        Utils.checkEmptyId(ID);
-        Utils.checkEmptyName(name);
-        Utils.checkEmptyGrossSalary(grossSalary);
+        ExceptionThrower.checkEmptyId(ID);
+        ExceptionThrower.checkEmptyName(name);
+        ExceptionThrower.checkEmptyGrossSalary(grossSalary);
         
         this.ID = ID;
         this.name = name;
