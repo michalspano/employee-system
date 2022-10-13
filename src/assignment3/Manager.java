@@ -17,9 +17,9 @@ public class Manager extends Employee {
          * TODO: add comment
          */
         
-        super(ID, name, grossSalary);
-        Utils.checkValidDegree(degree);
-        this.degree = degree;
+        super(ID, name, grossSalary);       // the checks for the ID, name and grossSalary are done in the Employee class
+        Utils.checkValidDegree(degree);     // for the degree, we need to check if it is valid
+        this.degree = degree;               // assign and create the object; otherwise, an Exception is thrown
     }
     
     /** 

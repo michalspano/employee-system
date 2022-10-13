@@ -15,7 +15,10 @@ public class Employee implements Comparable<Employee>
 
     public Employee(String ID, String name, double grossSalary) throws Exception 
     {
-        // TODO: explain the use of all the checks
+        /* these need to be checked before the creation of the Employee object via the Constructor
+         * if any of these are invalid, an Exception is thrown and no object is created
+         * Therefore, we need to check them before the object is created */
+
         Utils.checkEmptyId(ID);
         Utils.checkEmptyName(name);
         Utils.checkEmptyGrossSalary(grossSalary);
