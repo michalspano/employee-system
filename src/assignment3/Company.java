@@ -44,7 +44,7 @@ public class Company
         Employee newEmployee = EmployeeFactory.createEmployee(employeeID, employeeName, grossSalary);
         this.employees.add(newEmployee);
 
-        return CompanyUtils.registeredEmployee(employeeID);
+        return Utils.registeredEmployee(employeeID);
     }
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception 
@@ -55,7 +55,7 @@ public class Company
         Employee newEmployee = EmployeeFactory.createManager(employeeID, employeeName, grossSalary, degree);
         this.employees.add(newEmployee);
 
-        return CompanyUtils.registeredEmployee(employeeID);
+        return Utils.registeredEmployee(employeeID);
     }
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception 
@@ -65,7 +65,7 @@ public class Company
         Employee newEmployee = EmployeeFactory.createDirector(employeeID, employeeName, grossSalary, degree, department);
         this.employees.add(newEmployee);
 
-        return CompanyUtils.registeredEmployee(employeeID);
+        return Utils.registeredEmployee(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception 
@@ -75,7 +75,7 @@ public class Company
         Employee newEmployee = EmployeeFactory.createIntern(employeeID, employeeName, grossSalary, gpa);
         this.employees.add(newEmployee);
 
-        return CompanyUtils.registeredEmployee(employeeID);
+        return Utils.registeredEmployee(employeeID);
     }
     
     /** 
@@ -185,7 +185,7 @@ public class Company
         // set the new name 
         this.employees.get(employeeIndex).setName(newName);
 
-        return CompanyUtils.updatedEmployee(id);
+        return Utils.updatedEmployee(id);
     }
     
     /** 
@@ -207,7 +207,7 @@ public class Company
         Intern internEmployee = (Intern) currentEmployee;
         internEmployee.setGpa(newGpa);
 
-        return CompanyUtils.updatedEmployee(id);
+        return Utils.updatedEmployee(id);
     }
     
     /** 
@@ -229,7 +229,7 @@ public class Company
         Manager managerEmployee = (Manager) currentEmployee;
         managerEmployee.updateDegree(newDegree);
 
-        return CompanyUtils.updatedEmployee(id);
+        return Utils.updatedEmployee(id);
     }
     
     /** 
@@ -251,7 +251,7 @@ public class Company
         Director directorEmployee = (Director) currentEmployee;
         directorEmployee.updateDepartment(newDept);
 
-        return CompanyUtils.updatedEmployee(id);
+        return Utils.updatedEmployee(id);
     }
 
     /** 
@@ -267,7 +267,7 @@ public class Company
         // update the salary
         this.employees.get(employeeIndex).setGrossSalary(newGrossSalary);
 
-        return CompanyUtils.updatedEmployee(id);
+        return Utils.updatedEmployee(id);
     }
 
     /**
@@ -378,7 +378,7 @@ public class Company
         // replace the Employee with type Manager at the index
         this.employees.set(employeeIndex, newManager);
 
-        return CompanyUtils.promotedEmployee(id, "Manager");
+        return Utils.promotedEmployee(id, "Manager");
     }
     
     /** 
@@ -403,7 +403,7 @@ public class Company
         
         // replace the Employee with type Director at the index
         this.employees.set(employeeIndex, newDirector);
-        return CompanyUtils.promotedEmployee(id, "Director");
+        return Utils.promotedEmployee(id, "Director");
     }
     
     /** 
@@ -426,7 +426,7 @@ public class Company
         
         // replace the Employee with type Intern at the index
         this.employees.set(employeeIndex, newIntern);
-        return CompanyUtils.promotedEmployee(id, "Intern");
+        return Utils.promotedEmployee(id, "Intern");
     }
     
     // find the index of the Employee within the company; if not, return -1

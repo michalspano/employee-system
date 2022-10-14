@@ -65,4 +65,31 @@ public class Utils
     public static boolean isStringEmpty(String string) {
         return string == null || string.trim().isEmpty();
     }
+
+    // static methods for the Employee class
+
+    /**
+     * @param id
+     * @return String
+     */
+    public static String registeredEmployee(String id) {
+        return String.format("Employee %s was registered successfully.", id);
+    }
+
+    /**
+     * @param id
+     * @return String
+     */
+    public static String updatedEmployee(String id) {
+        return String.format("Employee %s was updated successfully", id);
+    }
+
+    /**
+     * @param id
+     * @param newType
+     * @return String
+     */
+    public static String promotedEmployee(String id, String newType) {
+        return String.format("%s promoted successfully to %s.", id, newType);
+    }
 }
