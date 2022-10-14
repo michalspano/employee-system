@@ -9,7 +9,14 @@ package assignment3;
 
 import assignment3.CustomExceptions.*;
 
-public class ExceptionThrower {
+public class ExceptionThrower 
+{
+    private ExceptionThrower() 
+    {
+      /* unreachable constructor; this class is not meant to be instantiated
+       * all the methods are static, so we don't need to instantiate it */
+    }
+
     /**
      * @param id
      * @throws Exception
