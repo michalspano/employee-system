@@ -7,11 +7,18 @@
 
 package assignment3;
 
-/* TODO: add explanation of the *static* factory class
+/* Explain 
  * 
  */
 
-public class EmployeeFactory {
+public class EmployeeFactory 
+{
+     private EmployeeFactory() 
+     {
+      /* unreachable constructor; this class is not meant to be instantiated
+       * all the methods are static, so we don't need to instantiate it */
+     }
+
     /**
      * @param employeeID
      * @param employeeName
@@ -32,7 +39,7 @@ public class EmployeeFactory {
       * @return Manager
       * @throws Exception
       */
-     public static Manager createEmployee(String ID, String name, double grossSalary, String degree) throws Exception 
+     public static Manager createManager(String ID, String name, double grossSalary, String degree) throws Exception 
      {
         return new Manager(ID, name, grossSalary, degree);
      }
@@ -46,7 +53,7 @@ public class EmployeeFactory {
       * @return Director
       * @throws Exception
       */
-     public static Director createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception 
+     public static Director createDirector(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception 
      {
         return new Director(employeeID, employeeName, grossSalary, degree, department);
      }
@@ -59,7 +66,7 @@ public class EmployeeFactory {
       * @return Intern
       * @throws Exception
       */
-     public static Intern createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
+     public static Intern createIntern(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
         return new Intern(employeeID, employeeName, grossSalary, gpa);
      }
 }
