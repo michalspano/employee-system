@@ -12,3 +12,6 @@
 
 # intelliJ specific
 .idea/
+
+# exclude mermaid source
+*.mmd
