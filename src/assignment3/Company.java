@@ -28,7 +28,7 @@ public class Company
     /* Below, we list the different overloaded methods to create different types of Employees per the specifications */
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception 
-    {   
+    {
         /* Include in the analysis of design
          * Method to ensure that no repeated Employees are registered (applies for all overloaded methods)
          * We call the method as the first procedure in the method, due to the following reasons:
@@ -44,7 +44,7 @@ public class Company
         Employee newEmployee = EmployeeFactory.createEmployee(employeeID, employeeName, grossSalary);
         this.employees.add(newEmployee);
 
-        return Utils.registeredEmployee(employeeID);
+        return CompanyUtils.registeredEmployee(employeeID);
     }
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree) throws Exception 
@@ -52,30 +52,30 @@ public class Company
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
         // create the object with the factory method
-        Employee newEmployee = EmployeeFactory.createEmployee(employeeID, employeeName, grossSalary, degree);
+        Employee newEmployee = EmployeeFactory.createManager(employeeID, employeeName, grossSalary, degree);
         this.employees.add(newEmployee);
 
-        return Utils.registeredEmployee(employeeID);
+        return CompanyUtils.registeredEmployee(employeeID);
     }
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary, String degree, String department) throws Exception 
     {
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
-        Employee newEmployee = EmployeeFactory.createEmployee(employeeID, employeeName, grossSalary, degree, department);
+        Employee newEmployee = EmployeeFactory.createDirector(employeeID, employeeName, grossSalary, degree, department);
         this.employees.add(newEmployee);
 
-        return Utils.registeredEmployee(employeeID);
+        return CompanyUtils.registeredEmployee(employeeID);
     }
 
     public String createEmployee(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception 
     {
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
-        Employee newEmployee = new Intern(employeeID, employeeName, grossSalary, gpa);
+        Employee newEmployee = EmployeeFactory.createIntern(employeeID, employeeName, grossSalary, gpa);
         this.employees.add(newEmployee);
 
-        return Utils.registeredEmployee(employeeID);
+        return CompanyUtils.registeredEmployee(employeeID);
     }
     
     /** 
@@ -185,7 +185,7 @@ public class Company
         // set the new name 
         this.employees.get(employeeIndex).setName(newName);
 
-        return Utils.updatedEmployee(id);
+        return CompanyUtils.updatedEmployee(id);
     }
     
     /** 
@@ -207,7 +207,7 @@ public class Company
         Intern internEmployee = (Intern) currentEmployee;
         internEmployee.setGpa(newGpa);
 
-        return Utils.updatedEmployee(id);
+        return CompanyUtils.updatedEmployee(id);
     }
     
     /** 
@@ -229,7 +229,7 @@ public class Company
         Manager managerEmployee = (Manager) currentEmployee;
         managerEmployee.updateDegree(newDegree);
 
-        return Utils.updatedEmployee(id);
+        return CompanyUtils.updatedEmployee(id);
     }
     
     /** 
@@ -251,7 +251,7 @@ public class Company
         Director directorEmployee = (Director) currentEmployee;
         directorEmployee.updateDepartment(newDept);
 
-        return Utils.updatedEmployee(id);
+        return CompanyUtils.updatedEmployee(id);
     }
 
     /** 
@@ -267,7 +267,7 @@ public class Company
         // update the salary
         this.employees.get(employeeIndex).setGrossSalary(newGrossSalary);
 
-        return Utils.updatedEmployee(id);
+        return CompanyUtils.updatedEmployee(id);
     }
 
     /**
@@ -370,15 +370,15 @@ public class Company
         Employee currentEmployee = this.employees.get(employeeIndex);
 
         // copy the required data from the Employee to a Manager
-        Manager newManager = new Manager(currentEmployee.getID(), 
-                                        currentEmployee.getName(), 
-                                        currentEmployee.getRawSalary(), 
-                                        degree);
+        Manager newManager = EmployeeFactory.createManager(currentEmployee.getID(), 
+                                                           currentEmployee.getName(), 
+                                                           currentEmployee.getRawSalary(), 
+                                                           degree);
 
         // replace the Employee with type Manager at the index
         this.employees.set(employeeIndex, newManager);
 
-        return Utils.promotedEmployee(id, "Manager");
+        return CompanyUtils.promotedEmployee(id, "Manager");
     }
     
     /** 
@@ -396,14 +396,14 @@ public class Company
         Employee currentEmployee = this.employees.get(employeeIndex);
 
         // copy the required data from the Employee to a Director (sub-type Manage)
-        Director newDirector = new Director(currentEmployee.getID(), 
+        Director newDirector = EmployeeFactory.createDirector(currentEmployee.getID(), 
                                             currentEmployee.getName(), 
                                             currentEmployee.getRawSalary(), 
                                             degree, department);
         
         // replace the Employee with type Director at the index
         this.employees.set(employeeIndex, newDirector);
-        return Utils.promotedEmployee(id, "Director");
+        return CompanyUtils.promotedEmployee(id, "Director");
     }
     
     /** 
@@ -419,14 +419,14 @@ public class Company
 
         Employee currentEmployee = this.employees.get(employeeIndex);
 
-        Intern newDirector = new Intern(currentEmployee.getID(), 
-                                        currentEmployee.getName(), 
-                                        currentEmployee.getRawSalary(), 
-                                        gpa);
+        Intern newIntern = EmployeeFactory.createIntern(currentEmployee.getID(), 
+                                                        currentEmployee.getName(), 
+                                                        currentEmployee.getRawSalary(), 
+                                                        gpa);
         
         // replace the Employee with type Intern at the index
-        this.employees.set(employeeIndex, newDirector);
-        return Utils.promotedEmployee(id, "Intern");
+        this.employees.set(employeeIndex, newIntern);
+        return CompanyUtils.promotedEmployee(id, "Intern");
     }
     
     // find the index of the Employee within the company; if not, return -1
