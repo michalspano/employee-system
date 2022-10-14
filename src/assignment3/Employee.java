@@ -39,17 +39,21 @@ public class Employee implements Comparable<Employee>
         double currentSalary = this.getGrossSalary();
         double otherSalary   = otherEmployee.getGrossSalary();
 
-        // sort in the increasing order
-        if (currentSalary > otherSalary) 
-        {
-            return 1;
+        // Built-in function
+        // TODO: Document this function
+        return Double.compare(currentSalary, otherSalary);
 
-        } else if (currentSalary == otherSalary) 
-        {
-            return 0;
-        }
+        // // sort in the increasing order
+        // if (currentSalary > otherSalary) 
+        // {
+        //     return 1;
 
-        return -1;
+        // } else if (currentSalary == otherSalary) 
+        // {
+        //     return 0;
+        // }
+
+        // return -1;
     }
     
     /** 

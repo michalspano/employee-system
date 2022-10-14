@@ -37,7 +37,7 @@ public class Intern extends Employee
      */
     @Override
     public double getGrossSalary()
-    {      
+    {
         if (this.gpa <= 5) 
         {
             return 0;
