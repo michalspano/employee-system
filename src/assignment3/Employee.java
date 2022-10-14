@@ -39,21 +39,8 @@ public class Employee implements Comparable<Employee>
         double currentSalary = this.getGrossSalary();
         double otherSalary   = otherEmployee.getGrossSalary();
 
-        // Built-in function
         // TODO: Document this function
         return Double.compare(currentSalary, otherSalary);
-
-        // // sort in the increasing order
-        // if (currentSalary > otherSalary) 
-        // {
-        //     return 1;
-
-        // } else if (currentSalary == otherSalary) 
-        // {
-        //     return 0;
-        // }
-
-        // return -1;
     }
     
     /** 
@@ -122,19 +109,9 @@ public class Employee implements Comparable<Employee>
      * @param otherEmployee
      * @return boolean
      */
-    public boolean equals(Object anotherObject) 
-    {   
-        // null, not an instance of Employee => not equal
-        if (anotherObject == null) return false;
-
-        if (anotherObject instanceof Employee) {        // check if the object is an instance of Employee
-
-            Employee otherEmployee = (Employee) anotherObject;      // perform down-casting and compare the IDs
-            return this.getID().equals(otherEmployee.getID());
-        }
-
-        // otherwise, not equal
-        return false;
+    public boolean equals(Employee otherEmployee) 
+    {
+        return this.ID.equals(otherEmployee.ID);
     }
 
     /** 
