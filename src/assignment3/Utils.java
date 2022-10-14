@@ -16,6 +16,12 @@ import java.util.HashMap;
 
 public class Utils
 {   
+    private Utils() 
+    {
+        /* unreachable constructor; this class is not meant to be instantiated
+         * all the methods are static, so we don't need to instantiate it */
+    }
+
     // TODO: add comments to explain the use of Collections, etc.
 
     /* 'Double Brace Initialization' (add() method one-liner)
@@ -58,32 +64,5 @@ public class Utils
      */
     public static boolean isStringEmpty(String string) {
         return string == null || string.trim().isEmpty();
-    }
-
-    // static printing methods for `Company.java`
-
-    /**
-     * @param id
-     * @return String
-     */
-    public static String registeredEmployee(String id) {
-        return String.format("Employee %s was registered successfully.", id);
-    }
-
-    /**
-     * @param id
-     * @return String
-     */
-    public static String updatedEmployee(String id) {
-        return String.format("Employee %s was updated successfully", id);
-    }
-
-    /**
-     * @param id
-     * @param newType
-     * @return String
-     */
-    public static String promotedEmployee(String id, String newType) {
-        return String.format("%s promoted successfully to %s.", id, newType);
     }
 }
