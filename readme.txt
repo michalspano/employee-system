@@ -27,7 +27,7 @@ SPECIFIC TASK DIVISION
             using the Mermaid diagramming tool (not auto-generated!) for easier visualization of the class hierarchy. 
 
         - Joel: contribution to the Company.java class and the CustomExceptions sub-package alongside with the 
-            other members. Created the Interns sub-class of the Employee hierarchy; collective work on the
+            other members. Created the Intern sub-class of the Employee hierarchy; collective work on the
             super-class Employee.java in a briefing session with the other members. Creation of 
             individual components within the ExceptionThrower class. Introduction of generalized behaviors
             within the Utils.java class, in order to enhance readability and re-usage of code. Reasoned about
