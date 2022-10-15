@@ -15,14 +15,16 @@ public class Director extends Manager
     public Director(String ID, String name, double grossSalary, String degree, String department) throws Exception
     {
         /* Analysis:
-         * TODO: add comment
-         */
+         * In the creation of the Director object, we ensure that the conditions are met (regarding the super-class)
+         * via the constructor, then an additional check for the valid degree is performed. In case any exception is
+         * thrown, the creation of the object is aborted. */
+
         super(ID, name, grossSalary, degree);
         ExceptionThrower.checkValidDepartment(department);
         this.department = department;
     }
 
-    /** We apply the bonus of the manager
+    /** We simply apply the bonus of the manager
      * @return double
      */
     @Override
@@ -36,6 +38,7 @@ public class Director extends Manager
      */
     public void updateDepartment(String newDept) throws Exception 
     {
+        // ensure that the department exists
         ExceptionThrower.checkValidDepartment(newDept);
         this.department = newDept;
     }
@@ -52,9 +55,7 @@ public class Director extends Manager
         // 1st case: < 30_000
         if (grossSalary < 30_000) 
         {
-            
-            netSalary = super.getNetSalary();
-            return netSalary;
+            netSalary = super.getNetSalary(); // no steps required
         }
 
         /* 2nd case: >= 30_000 and <= 50_000
@@ -65,8 +66,7 @@ public class Director extends Manager
 
         else if(grossSalary <= 50_000) 
         {   
-            return Utils.truncateDouble(this.getGrossSalary() * 0.8, 2);
-
+            netSalary = Utils.truncateDouble(this.getGrossSalary() * 0.8, 2);
         }
         
         /* 3rd case: > 50_000 
@@ -85,6 +85,8 @@ public class Director extends Manager
 
             netSalary = 24_000 + Utils.truncateDouble(remainder * (0.6), 2);
         }
+
+        // return the net salary value
         return netSalary;
     }
 
@@ -94,6 +96,7 @@ public class Director extends Manager
     @Override
     public String toString()
     {
+        // update the Manager's toString() method with the additional department information
         return String.format("%s Dept: %s", super.toString(), department);
     }
 }
