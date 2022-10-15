@@ -10,7 +10,7 @@ package assignment3;
 public class Director extends Manager 
 {    
     private String department;
-    private static final int DIRECTOR_BONUS = 5_000;
+    private final int DIRECTOR_BONUS = 5_000;
 
     public Director(String ID, String name, double grossSalary, String degree, String department) throws Exception
     {
