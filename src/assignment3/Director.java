@@ -16,7 +16,7 @@ public class Director extends Manager
     {
         /* Analysis:
          * In the creation of the Director object, we ensure that the conditions are met (regarding the super-class)
-         * via the constructor, then an additional check for the valid degree is performed. In case any exception is
+         * via the super() constructor, then an additional check for the valid degree is performed. In case any exception is
          * thrown, the creation of the object is aborted. */
 
         super(ID, name, grossSalary, degree);

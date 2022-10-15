@@ -15,8 +15,9 @@ public class Intern extends Employee
     public Intern(String ID, String name, double grossSalary, int gpa) throws Exception 
     {
         /* Analysis:
-         * TODO: add comment
-         */
+         * In the creation of the Intern object, we ensure that the conditions are met (regarding the super-class)
+         * via the super() constructor, then an additional check for the valid gpa is performed. In case any exception 
+         * is thrown, the creation of the object is aborted. */
         
         super(ID, name, grossSalary);
         ExceptionThrower.checkValidGPA(gpa);
@@ -28,6 +29,7 @@ public class Intern extends Employee
      */
     public void setGpa(int newGPA) throws Exception
     {
+        // ensure that the new gpa is valid
         ExceptionThrower.checkValidGPA(newGPA);
         this.gpa = newGPA;
     }
