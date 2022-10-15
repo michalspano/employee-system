@@ -32,16 +32,16 @@ public class EmployeeFactory
      }
      
      /** 
-      * @param ID
-      * @param name
+      * @param employeeID
+      * @param employeeName
       * @param grossSalary
       * @param degree
       * @return Manager
       * @throws Exception
       */
-     public static Manager createManager(String ID, String name, double grossSalary, String degree) throws Exception 
+     public static Manager createManager(String employeeID, String employeeName, double grossSalary, String degree) throws Exception 
      {
-        return new Manager(ID, name, grossSalary, degree);
+        return new Manager(employeeID, employeeName, grossSalary, degree);
      }
      
      /** 
