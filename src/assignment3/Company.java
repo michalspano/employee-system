@@ -7,37 +7,32 @@
 
 package assignment3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashMap;       // used to store individual employee's degrees
+import java.util.ArrayList;     // used to store the employees
+import java.util.Collections;   // used to sort the employees via Comparable interface
 
 public class Company 
 {    
-    /* Collection of type ArrayList to store the current employees of the company */
     private ArrayList<Employee> employees;
 
-    public Company() // initial constructor
+    /* Future idea: to store the employees, we could use a LinkedHashMap, such that each key represents an employee,
+     * that is, the ID of the employee, and the value is the object with the properties of the employee. Therefore,
+     * we could enhance the search for an employee by ID to O(1) instead of O(n).
+     * 
+     * Docs: https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html
+     * Last accessed: 15.10. 2022 */
+
+    public Company() 
     {
         this.employees = new ArrayList<>();
     }
 
-    // as the tests indicate, there need to be overloaded methods of the name createEmployee(...)
-    // the logic of the factory is just to instantiate the objects elsewhere
-    // to avoid repetition, javadoc included inside EmployeeFactory.java only
-
-    /* Below, we list the different overloaded methods to create different types of Employees per the specifications */
+    /* Below, we list the different overloaded methods to create different types of Employees per the specifications 
+     * of the assignment. The actual creation via the `new` keyword takes place in the EmployeeFactory class. */
     
     public String createEmployee(String employeeID, String employeeName, double grossSalary) throws Exception 
     {
-        /* Include in the analysis of design
-         * Method to ensure that no repeated Employees are registered (applies for all overloaded methods)
-         * We call the method as the first procedure in the method, due to the following reasons:
-         * 1. if the employee is already registered, we don't need to carry any of the other procedures within the method
-         * 2. the method depends on the `findEmployeeIndex()` method, which is a private method of this class and thus, 
-         * it cannot be called from outside the class. We could move it to the Utils class, etc., but it is not necessary, 
-         * as it is only used in this class and it requires the `employees` collection.
-         * So, we don't need to pass the reference to the collection as a parameter, as it is already a member of the class. */
-
+        // ensure that the employee does not already exist
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
         // create the object with the factory method
@@ -51,9 +46,9 @@ public class Company
     {
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
-        // create the object with the factory method
-        Employee newEmployee = EmployeeFactory.createManager(employeeID, employeeName, grossSalary, degree);
-        this.employees.add(newEmployee);
+        // create manager object
+        Employee newManager = EmployeeFactory.createManager(employeeID, employeeName, grossSalary, degree);
+        this.employees.add(newManager);
 
         return Utils.registeredEmployee(employeeID);
     }
@@ -62,8 +57,9 @@ public class Company
     {
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
-        Employee newEmployee = EmployeeFactory.createDirector(employeeID, employeeName, grossSalary, degree, department);
-        this.employees.add(newEmployee);
+        // create director object
+        Employee newDirector = EmployeeFactory.createDirector(employeeID, employeeName, grossSalary, degree, department);
+        this.employees.add(newDirector);
 
         return Utils.registeredEmployee(employeeID);
     }
@@ -72,8 +68,9 @@ public class Company
     {
         ExceptionThrower.checkIfEmployeeRegistered(employeeID, findEmployeeIndex(employeeID));
 
-        Employee newEmployee = EmployeeFactory.createIntern(employeeID, employeeName, grossSalary, gpa);
-        this.employees.add(newEmployee);
+        // create intern object
+        Employee newIntern = EmployeeFactory.createIntern(employeeID, employeeName, grossSalary, gpa);
+        this.employees.add(newIntern);
 
         return Utils.registeredEmployee(employeeID);
     }
@@ -86,7 +83,9 @@ public class Company
     {
         int employeeIndex = findEmployeeIndex(id);
 
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
+
         this.employees.remove(employeeIndex);
 
         return String.format("Employee %s was successfully removed.", id);
@@ -100,7 +99,9 @@ public class Company
     {
         int employeeIndex = findEmployeeIndex(id);
 
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
+
         Employee currentEmployee = this.employees.get(employeeIndex);
 
         return currentEmployee.toString();
@@ -111,8 +112,9 @@ public class Company
      */
     public String printAllEmployees() throws Exception
     {  
-        // if no Employees are found; don't continue with the algorithm
-        ExceptionThrower.checkIfNoEmployees(this.employees.size());
+        // if no Employees are found; don't continue with the algorithm - throw an exception
+        int numberOfEmployees = this.employees.size();
+        ExceptionThrower.checkIfNoEmployees(numberOfEmployees);
 
         String msg = "All registered employees:" + Utils.EOL; // initial string header
 
@@ -128,7 +130,8 @@ public class Company
      */
     public String printSortedEmployees() throws Exception
     {
-        ExceptionThrower.checkIfNoEmployees(this.employees.size()); // this needs to be checked before accessing the body of this method
+        // ensure that there are employees to sort; otherwise, throw an exception
+        ExceptionThrower.checkIfNoEmployees(this.employees.size()); 
 
         /* This implementation uses the Collections.sort() from the Collections class; we define the 
          * compareTo() method from the Comparable interface in the Employee class to sort the employees
@@ -142,7 +145,7 @@ public class Company
          * Last accessed: 12.10.2022 */
 
         ArrayList<Employee> temporaryList = new ArrayList<>() {{ 
-            addAll(employees); 
+            addAll(employees); // copy the employees
         }}; 
 
         String result = "Employees sorted by gross salary (ascending order):" + Utils.EOL;
@@ -165,6 +168,7 @@ public class Company
     {
         int employeeIndex = findEmployeeIndex(id);
 
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
         Employee currentEmployee = this.employees.get(employeeIndex);
         
@@ -180,6 +184,8 @@ public class Company
     public String updateEmployeeName(String id, String newName) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         // set the new name 
@@ -197,6 +203,7 @@ public class Company
     {
         int employeeIndex = findEmployeeIndex(id);
 
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -218,6 +225,8 @@ public class Company
     public String updateManagerDegree(String id, String newDegree) throws Exception
     {
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
@@ -241,6 +250,7 @@ public class Company
     {
         int employeeIndex = findEmployeeIndex(id);
 
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
         Employee currentEmployee = this.employees.get(employeeIndex);
 
@@ -262,6 +272,8 @@ public class Company
     public String updateGrossSalary(String id, double newGrossSalary) throws Exception
     {           
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the index is valid; if not, throw an exception
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         // update the salary
@@ -275,7 +287,7 @@ public class Company
      */
     public double getTotalNetSalary() throws Exception
     {
-        // don't perform the following if no Employees found
+        // ensure that there are employees; otherwise, throw an exception
         ExceptionThrower.checkIfNoEmployees(this.employees.size());
 
         double sum = 0.0;
@@ -287,18 +299,16 @@ public class Company
         return sum;
     }
     
+    
+    /* Analysis mapEachDegree() method:
+    * This method should return String in the specifications.
+    * If there are no employees registered with a specific degree, the corresponding row is simply not printed.
+    * However, in the tests, the expected type is a HashMap, not a String. Below, is a method for formatting
+    * the string. It would need to be called inside the mapEachDegree() method. */
+    
     /** 
      * @return HashMap<String, Integer>
      */
-
-    /*
-     * TODO: this method should return String in the specifications
-     * If there are no employees registered with a specific degree, the
-     * corresponding row is simply not printed.
-     * However, in the tests, the expected type is a HashMap, not a String
-     * Make a method for formatting too
-     */
-
     public HashMap<String, Integer> mapEachDegree() throws Exception
     {
         // don't perform the algorithm if no Employees are found
@@ -328,33 +338,22 @@ public class Company
         return degreesMap;
     }
     
-    /** Currently not used, the tests don't expect this functionality (even though the instruction do)
-     * @param degrees
-     * @return String
-     */
+    /* currently unused; explanation above^
     public String formatDegrees(HashMap<String, Integer> degrees) {
+    
         String result = "Academic background of employees:" + Utils.EOL;
-
+        
         for (String key : degrees.keySet()) {
-
+            
             int degreeCount = degrees.get(key);
             if (degreeCount > 0) { // only rows with more than 0 degrees are printed
-                result += String.format("%s: => %d", key, degreeCount) + Utils.EOL;
+            result += String.format("%s: => %d", key, degreeCount) + Utils.EOL;
             }
         }
-
+    
         return result;
-    }
-
-    /* ArrayList.set();
-     * Docs: https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
-     * 
-     *              set(int index, E element)
-     * Replaces the element at the specified position in this list with the
-     * specified element.
-     * 
-     * Last accessed: 10.10.2022 */
-
+    } */
+    
     /**
      * @param id
      * @param degree
@@ -363,8 +362,9 @@ public class Company
      */
     public String promoteToManager(String id, String degree) throws Exception
     {   
-        // ensure that the Employee given byt the ID exits
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the Employee given byt the ID exits
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
@@ -375,7 +375,14 @@ public class Company
                                                            currentEmployee.getRawSalary(), 
                                                            degree);
 
-        // replace the Employee with type Manager at the index
+        /* ArrayList.set();
+         * Docs: https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html
+         * 
+         *      set(int index, E element)
+         * Replaces the element at the specified position in this list with the
+         * specified element.
+         * Last accessed: 10.10.2022 */
+
         this.employees.set(employeeIndex, newManager);
 
         return Utils.promotedEmployee(id, "Manager");
@@ -389,8 +396,9 @@ public class Company
      */
     public String promoteToDirector(String id, String degree, String department) throws Exception
     {
-        // ensure that the Employee given byt the ID exits
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the Employee given byt the ID exits
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
@@ -413,8 +421,9 @@ public class Company
      */
     public String promoteToIntern(String id, int gpa) throws Exception
     {
-        // ensure that the Employee given byt the ID exits
         int employeeIndex = findEmployeeIndex(id);
+
+        // ensure that the Employee given byt the ID exits
         ExceptionThrower.checkIfEmployeeFound(id, employeeIndex);
 
         Employee currentEmployee = this.employees.get(employeeIndex);
@@ -429,7 +438,9 @@ public class Company
         return Utils.promotedEmployee(id, "Intern");
     }
     
-    // find the index of the Employee within the company; if not, return -1
+    /* find the index of the Employee within the company; if not, return -1
+     * this is a private method specific to the Company class */
+
     private int findEmployeeIndex(String id) {
 
         for (int i = 0; i < employees.size(); i++) {
