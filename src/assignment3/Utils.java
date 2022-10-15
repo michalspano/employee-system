@@ -8,11 +8,12 @@
 package assignment3;
 
 import java.lang.Math;
-
 import java.util.HashSet;
 import java.util.HashMap;
 
-/* Herein, we specify static methods shared across the classes... */
+/* Here, we specify static methods that may be used across the classes with some essential functionalities 
+ * The main reason for this class is, that these methods wouldn't fit the abstractions of the classes they are used in.
+ * Instead, they are defined in Utils - a class that is meant to be used as a "toolbox" for the other classes. */
 
 public class Utils
 {   
@@ -22,11 +23,14 @@ public class Utils
          * all the methods are static, so we don't need to instantiate it */
     }
 
-    // TODO: add comments to explain the use of Collections, etc.
-
     /* 'Double Brace Initialization' (add() method one-liner)
      * Documentation summary via:
      * https://www.geeksforgeeks.org/double-brace-initialization-java/
+     * 
+     * This is a more elegant and readable way of initializing a collection. Similarly,
+     * we obtain the methods of the classes if this approach is chosen (instead of using,
+     * say, an enum) such as the contains() method, etc (that make the code more readable).
+     * 
      * Last accessed: 11.10.2022 */
     
     public static final HashSet<String> DEPARTMENTS = new HashSet<>() {{
@@ -43,12 +47,17 @@ public class Utils
 
     public static final String EOL = System.lineSeparator();
 
-    /** truncate a double to n decimal places
+    /** Truncate a double to n decimal places [2]
+     * we make this function more general, so it can truncate a decimal to n places.
+     * Reason: suppose a customer call, that, all of sudden, all the salaries are truncated
+     * to 3 decimal places instead. With this function, we can easily do that.
+     * 
      * @param value
      * @param decimalPlaces
      * @return double
      */
-    public static double truncateDouble(double value, int decimalPlaces) {
+    public static double truncateDouble(double value, int decimalPlaces) 
+    {
         double powerOfTen = Math.pow(10, decimalPlaces);
         return Math.floor(value * powerOfTen) / powerOfTen;
     }
@@ -62,17 +71,19 @@ public class Utils
      * @param string
      * @return boolean
      */
-    public static boolean isStringEmpty(String string) {
+    public static boolean isStringEmpty(String string) 
+    {
         return string == null || string.trim().isEmpty();
     }
 
-    // static methods for the Employee class
+    // static methods for the Employee class (they return a string literal)
 
     /**
      * @param id
      * @return String
      */
-    public static String registeredEmployee(String id) {
+    public static String registeredEmployee(String id) 
+    {
         return String.format("Employee %s was registered successfully.", id);
     }
 
@@ -80,7 +91,8 @@ public class Utils
      * @param id
      * @return String
      */
-    public static String updatedEmployee(String id) {
+    public static String updatedEmployee(String id) 
+    {
         return String.format("Employee %s was updated successfully", id);
     }
 
@@ -89,7 +101,8 @@ public class Utils
      * @param newType
      * @return String
      */
-    public static String promotedEmployee(String id, String newType) {
+    public static String promotedEmployee(String id, String newType) 
+    {
         return String.format("%s promoted successfully to %s.", id, newType);
     }
 }
