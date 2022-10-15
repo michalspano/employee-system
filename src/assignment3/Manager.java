@@ -7,19 +7,20 @@
 
 package assignment3;
 
-public class Manager extends Employee {
-
+public class Manager extends Employee 
+{
     private String degree;
     
     public Manager(String ID, String name, double grossSalary, String degree) throws Exception 
     {   
         /* Analysis:
-         * TODO: add comment
-         */
+         * In the creation of the Manager object, we ensure that the conditions are met (regarding the super-class)
+         * via the super() constructor, then an additional check for the valid degree is performed. In case 
+         * any exception is thrown, the creation of the object is aborted. */
         
-        super(ID, name, grossSalary);       // the checks for the ID, name and grossSalary are done in the Employee class
-        ExceptionThrower.checkValidDegree(degree);     // for the degree, we need to check if it is valid
-        this.degree = degree;               // assign and create the object; otherwise, an Exception is thrown
+        super(ID, name, grossSalary);       
+        ExceptionThrower.checkValidDegree(degree);     
+        this.degree = degree;               
     }
     
     /** 
@@ -59,7 +60,8 @@ public class Manager extends Employee {
      * @return String
      */
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return String.format("%s %s's gross salary is %.2f SEK per month.",
                             this.degree, super.getName(), this.getGrossSalary());
     }
