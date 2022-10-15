@@ -9,3 +9,9 @@
 
 # exclude zips
 *.zip
+
+# intelliJ specific
+.idea/
+
+# exclude mermaid source
+*.mmd
