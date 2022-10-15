@@ -7,9 +7,10 @@
 
 package assignment3;
 
-/* Explain 
- * 
- */
+/* Explanation:
+ * We would like to separate the creation of the individual objects from the Company.java class, hence
+ * we create EmployeeFactory.java. This class will be responsible for creating the objects, and will
+ * be called from Company.java. */
 
 public class EmployeeFactory 
 {
@@ -66,7 +67,8 @@ public class EmployeeFactory
       * @return Intern
       * @throws Exception
       */
-     public static Intern createIntern(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception {
+     public static Intern createIntern(String employeeID, String employeeName, double grossSalary, int gpa) throws Exception 
+     {
         return new Intern(employeeID, employeeName, grossSalary, gpa);
      }
 }
