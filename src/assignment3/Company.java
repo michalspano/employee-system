@@ -174,8 +174,6 @@ public class Company
         
         return currentEmployee.getNetSalary();
     }
-
-    /* The following methods for updating the attributes are quite repetitive, consider making them more cohesive */
     
     /** 
      * @param id
