@@ -1,3 +1,5 @@
+// Test source code on behalf of Francisco Gomes de Oliveira Neto (2022) at University of Gothenburg
+
 package employeetests;
 
 import assignment3.Company;
