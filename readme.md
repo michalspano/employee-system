@@ -8,5 +8,5 @@ The goal of this assignment was to put the `OOP` principles into practice by des
 
 ### Acknowledgement
 
-Authors: Ionel Pop, Joel Mattson, Michal Spano.
-Unit testing: Francisco Gomes de Oliveira Neto
+- Authors: Ionel Pop, Joel Mattson, Michal Spano
+- Unit testing: Francisco Gomes de Oliveira Neto
